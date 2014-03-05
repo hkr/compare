@@ -27,7 +27,7 @@ struct Simple
     bool b;
     std::tuple<int, char> t;
 };
-
+    
 bool CompareComplicated(Complicated const& x, Complicated const& y)
 {
     auto&& compare = hkr::make_compare(&Complicated::x, &Complicated::Get,
@@ -46,7 +46,7 @@ bool CompareSimple(Simple const& x, Simple const& y)
 int main(int argc, const char * argv[])
 {
     Simple d[] = { {2, true}, {2, false} };
-    std::sort(std::begin(d), std::end(d), hkr::make_compare(&Simple::a, &Simple::b, &Simple::t));
+    std::sort(std::begin(d), std::end(d), hkr::make_compare(&Simple::a, hkr::gt(&Simple::b), &Simple::t));
     std::cout << d[0].b << " " << d[1].b << std::endl;
     
     Complicated a = { 4, { 2, 2 } };

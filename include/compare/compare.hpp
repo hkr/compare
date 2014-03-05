@@ -26,7 +26,19 @@ detail::compare_dispatch<As...> make_compare(As... as)
 {
     return detail::compare_dispatch<As...>(as...);
 }
+    
+template <typename T>
+auto gt(T&& x) -> decltype(compare_using(x, detail::polymorphic_compare<std::greater>()))
+{
+    return compare_using(x, detail::polymorphic_compare<std::greater>());
+}
 
+template <typename T>
+auto lt(T&& x) -> decltype(compare_using(x, detail::polymorphic_compare<std::less>()))
+{
+    return compare_using(x, detail::polymorphic_compare<std::less>());
+}
+    
 } // namespace hkr
 
 #endif // HKR_MAKE_COMPARE_HPP

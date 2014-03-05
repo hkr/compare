@@ -134,6 +134,18 @@ private:
         return unwrap(lhs, rhs, xs..., std::get<sizeof...(Xs)>(args));
     }
 };
+
+    
+// polymorphic compare functions, similar to C++14 (I guess?) std::greater<void>
+template <template <typename> class Cmp>
+struct polymorphic_compare
+{
+    template <typename T>
+    bool operator()(T const& x, T const& y) const
+    {
+        return Cmp<T>()(x, y);
+    }
+};
     
 } // namespace detail
 } // namespace hkr
